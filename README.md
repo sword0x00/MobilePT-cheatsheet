@@ -15,4 +15,10 @@ Mobile (Android&amp;IOS) Penetration Tester Specialist Cheatsheet
 # Open Andriod studio for kali
 cd /opt/android-studio/bin
 ./studio.sh
+
+# Open Andriod Emulator
+cd ~/Android/Sdk/emulator
+./emulator -list-avds
+./emulator -avd Device_name_here
 ```
+
