@@ -21,4 +21,10 @@ cd ~/Android/Sdk/emulator
 ./emulator -list-avds
 ./emulator -avd Device_name_here
 ```
+## Intents
+```
+## Declares our intention (Intent) to view (ACTION_VIEW) the URL
+Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://hextree.io/"));
+startActivity(browserIntent);
+```
 
