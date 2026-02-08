@@ -26,5 +26,25 @@ cd ~/Android/Sdk/emulator
 ## Declares our intention (Intent) to view (ACTION_VIEW) the URL
 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://hextree.io/"));
 startActivity(browserIntent);
+
+## To receiving Intent
+1) First go to manifist.xml:-
+ <activity
+            android:name=".SecretIntent"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <data android:mimeType="text/plain" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+2) Then create new activity:-
+        Intent recieveIntent= getIntent();
+        String sharedText = recieveIntent.getStringExtra(Intent.EXTRA_TEXT);
+        if(sharedText!=null){
+            TextView debugText = findViewById(R.id.debug_test);
+            debugText.setText("shared: "+sharedText);
+        }
+        
 ```
 
