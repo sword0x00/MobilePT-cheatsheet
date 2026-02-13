@@ -22,6 +22,10 @@ cd /opt/android-studio/bin
 cd ~/Android/Sdk/emulator
 ./emulator -list-avds
 ./emulator -avd Device_name_here
+
+# Open Genymobile Emulator
+opt/genymobile/genymotion/genymotion
+
 ```
 ## adb
 ```
