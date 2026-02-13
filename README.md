@@ -29,6 +29,20 @@ adb version
 adb devices
 adb -s emulator-5554 shell ---> Specify the active device using the -s parameter
 adb -d shell ---> Specify to use a single USB device using the -d parameter
+adb push <local_file_on_computer> <target_path_on_device> ---> upload file from your Pc to your device
+adb pull <file_path_on_device> [<optional_target path_on_the_computer>] ---> to download file
+adb install <path to .apk>
+adb shell pm list packages ---> Lists all installed packages - including system packages.
+adb shell pm list packages -3  ---> List only third party packages.
+adb shell pm clear <package_name> ---> Clear the application data without removing the actual application.
+adb shell dumpsys package <package_name> ---> List information such as activities and permissions of a package.
+adb shell am start <package_name>/<activity_name> ---> Starts the activity of the specified package.
+adb uninstall <package_name>
+Refference ---> https://developer.android.com/tools/adb#pm
+
+adb logcat -v <log_format_like_'brief'>
+adb logcat "MainActivity:V *:S"
+adb logcat -v brief "MainActivity:V *:S"
 
 ```
 ## Intents
