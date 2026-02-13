@@ -34,6 +34,7 @@ adb pull <file_path_on_device> [<optional_target path_on_the_computer>] ---> to 
 adb install <path to .apk>
 adb shell pm list packages ---> Lists all installed packages - including system packages.
 adb shell pm list packages -3  ---> List only third party packages.
+adb shell pm path <package_name> ---> get the path to the APK.
 adb shell pm clear <package_name> ---> Clear the application data without removing the actual application.
 adb shell dumpsys package <package_name> ---> List information such as activities and permissions of a package.
 adb shell am start <package_name>/<activity_name> ---> Starts the activity of the specified package.
@@ -43,6 +44,9 @@ Refference ---> https://developer.android.com/tools/adb#pm
 adb logcat -v <log_format_like_'brief'>
 adb logcat "MainActivity:V *:S"
 adb logcat -v brief "MainActivity:V *:S"
+
+apktool d  io.hextree.reversingexample.apk
+
 
 ```
 ## Intents
