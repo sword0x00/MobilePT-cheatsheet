@@ -21,6 +21,14 @@ cd ~/Android/Sdk/emulator
 ./emulator -list-avds
 ./emulator -avd Device_name_here
 ```
+## adb
+```
+adb version
+adb devices
+adb -s emulator-5554 shell ---> Specify the active device using the -s parameter
+adb -d shell ---> Specify to use a single USB device using the -d parameter
+
+```
 ## Intents
 ```
 ## Declares our intention (Intent) to view (ACTION_VIEW) the URL
