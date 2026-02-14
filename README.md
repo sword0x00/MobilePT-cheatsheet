@@ -62,7 +62,9 @@ keytool -genkey -v -keystore research.keystore -alias research_key -keyalg RSA -
 ### Signing an APK
 # jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore research.keystore app.apk research_key
 # On newer Android versions SHA1 signatures still get rejected. In that case simply use the default algorithms
-jarsigner -verbose -keystore research.keystore app.apk research_key
+jarsigner -verbose -keystore research.keystore /dist/app.apk research_key
+sudo /home/kali/Android/Sdk/build-tools/36.1.0/apksigner sign --ks ../research.keystore /dist/io.hextree.reversingexample.apk
+
 
 ```
 ## Intents
