@@ -7,6 +7,7 @@ Mobile (Android&amp;IOS) Penetration Tester Specialist Cheatsheet
 - [Android](#Android)
   - [Start Android Studio For Kali](#start-android-studio-for-kali)
   - [adb](#adb)
+  - [apktool](#apktool)
   - [Intents](#intents)
 
 
@@ -24,7 +25,7 @@ cd ~/Android/Sdk/emulator
 ./emulator -avd Device_name_here
 
 # Open Genymobile Emulator
-opt/genymobile/genymotion/genymotion
+/opt/genymobile/genymotion/genymotion
 
 ```
 ## adb
@@ -48,9 +49,20 @@ Refference ---> https://developer.android.com/tools/adb#pm
 adb logcat -v <log_format_like_'brief'>
 adb logcat "MainActivity:V *:S"
 adb logcat -v brief "MainActivity:V *:S"
+```
+## apktool
+```
+### apktool to desassmple
+sudo apktool d  io.hextree.reversingexample.apk
+### apktool to rebacking the files to be apk 
+apktool b
 
-apktool d  io.hextree.reversingexample.apk
-
+### Creating a Keystore
+keytool -genkey -v -keystore research.keystore -alias research_key -keyalg RSA -keysize 2048 -validity 10000
+### Signing an APK
+# jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore research.keystore app.apk research_key
+# On newer Android versions SHA1 signatures still get rejected. In that case simply use the default algorithms
+jarsigner -verbose -keystore research.keystore app.apk research_key
 
 ```
 ## Intents
