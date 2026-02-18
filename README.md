@@ -8,7 +8,9 @@ Mobile (Android&amp;IOS) Penetration Tester Specialist Cheatsheet
   - [Start Android Studio For Kali](#start-android-studio-for-kali)
   - [adb](#adb)
   - [apktool](#apktool)
+  - [jadx](#jadx)
   - [Intents](#intents)
+  
 
 
 
@@ -66,6 +68,37 @@ jarsigner -verbose -keystore research.keystore /dist/app.apk research_key
 sudo /home/kali/Android/Sdk/build-tools/36.1.0/apksigner sign --ks ../research.keystore /dist/io.hextree.reversingexample.apk
 sudo [...]/build-tools/34.0.0/zipalign -p -f -v 4 ./dist/<apktool_build>.apk aligned.apk
 
+```
+## jadx
+```
+### Open jadx via GUI
+ jadx-gui '/io.hextree.weatherusa_update1.apk' 
+
+### compare two apks for on application
+/opt/jadx/bin/jadx io.hextree.weatherusa_update1.apk -d app2
+/opt/jadx/bin/jadx io.hextree.weatherusa_update1.apk -d app1
+then open vs code
+install  Compare Folders 
+you will green lines and red lines
+
+## run the native lib against it self  & defeat a basic JNI obfuscation by calling the same functions from a custom app we build
+- copy all native libiraries from obfusticated app , and paste it in /Projectview/app/src/main/jniLibs in our custom and small app (PoC)
+- go to /src/main/java and creat a class look like the class in the obfuscated app ex:- io.hextree.weatherusa.InternetUtil , to be
+        ===================
+          package io.hextree.weatherusa;// obustcated app package name
+          public class InternetUtil { // name of class where the native lib loaded in obfustcated app
+              private static native String getKey(String str);
+              public static String solve(){
+                  System.loadLibrary("native-lib");
+                  return getKey("moiba1cybar8smart4sheriff4securi");
+              }
+          }
+        ==================
+- then retriev the funcion you creat from the preivous class into main class
+        =====
+        val homeText = findViewById<TextView>(R.id.home_text_view)
+        homeText.text = "proffffffffffff of C PoC"+ InternetUtil.solve();
+        ====
 ```
 ## Intents
 ```
