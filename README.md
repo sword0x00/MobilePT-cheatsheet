@@ -9,7 +9,7 @@ Mobile (Android&amp;IOS) Penetration Tester Specialist Cheatsheet
   - [adb](#adb)
   - [apktool](#apktool)
   - [jadx](#jadx)
-  - [Network Interception](#network_interception)
+  - [Network Interception](#network-interception)
   - [Intents](#intents)
   
 
@@ -103,7 +103,8 @@ you will green lines and red lines
 ```
 ## Network Interception
 ```
-<img width="1673" height="967" alt="image" src="https://github.com/user-attachments/assets/0aa297ea-91a3-49ba-b924-7e675bf80d2e" />
+
+![image](https://github.com/user-attachments/assets/7b10d3be-8fef-41e4-88e0-713ce7733d32)
 
 
 ```
