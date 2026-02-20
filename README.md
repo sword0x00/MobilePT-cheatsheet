@@ -9,6 +9,7 @@ Mobile (Android&amp;IOS) Penetration Tester Specialist Cheatsheet
   - [adb](#adb)
   - [apktool](#apktool)
   - [jadx](#jadx)
+  - [Network Interception](#network_interception)
   - [Intents](#intents)
   
 
@@ -99,6 +100,12 @@ you will green lines and red lines
         val homeText = findViewById<TextView>(R.id.home_text_view)
         homeText.text = "proffffffffffff of C PoC"+ InternetUtil.solve();
         ====
+```
+## Network Interception
+```
+<img width="1673" height="967" alt="image" src="https://github.com/user-attachments/assets/0aa297ea-91a3-49ba-b924-7e675bf80d2e" />
+
+
 ```
 ## Intents
 ```
