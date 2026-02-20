@@ -105,8 +105,17 @@ you will green lines and red lines
 
 ![image](https://github.com/user-attachments/assets/7b10d3be-8fef-41e4-88e0-713ce7733d32)
 <img width="1658" height="907" alt="image" src="https://github.com/user-attachments/assets/25de1f2c-593f-49df-af57-9c1d658d1716" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7e60e759-0edf-444b-a09e-9d7756c59fb3" />
 
 
+```
+# Capute tcp trafic via dumping
+./emulator -tcpdump packets.cap -avd Emulator_API_37
+
+# when apps do ignore the proxy settings, we have to use other techniques
+--> Patching with apktool.
+--> Dynamic instrumentation.
+```
 
 ## Intents
 ```
