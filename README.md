@@ -102,12 +102,12 @@ you will green lines and red lines
         ====
 ```
 ## Network Interception
-```
 
 ![image](https://github.com/user-attachments/assets/7b10d3be-8fef-41e4-88e0-713ce7733d32)
+<img width="1658" height="907" alt="image" src="https://github.com/user-attachments/assets/25de1f2c-593f-49df-af57-9c1d658d1716" />
 
 
-```
+
 ## Intents
 ```
 ## Declares our intention (Intent) to view (ACTION_VIEW) the URL
