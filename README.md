@@ -26,6 +26,9 @@ cd /opt/android-studio/bin
 cd ~/Android/Sdk/emulator
 ./emulator -list-avds
 ./emulator -avd Device_name_here
+--------------------------------
+export QT_QPA_PLATFORM=xcb
+./emulator -avd Pixel_6_API_33 -no-snapshot -scale 0.5 -memory 2048
 
 # Open Genymobile Emulator
 /opt/genymobile/genymotion/genymotion
@@ -115,6 +118,27 @@ you will green lines and red lines
 # when apps do ignore the proxy settings, we have to use other techniques
 --> Patching with apktool.
 --> Dynamic instrumentation.
+----------------------------------------------------------------------------
+# install you Certificate in system CA
+1- configure you wifi proxy
+2- install burp in user certificate
+3- adb root
+4- adb shell
+5-
+    # Backup the existing system certificates to the user certs folder
+    cp /system/etc/security/cacerts/* /data/misc/user/0/cacerts-added/
+    
+    # Create the in-memory mount on top of the system certs folder
+    mount -t tmpfs tmpfs /system/etc/security/cacerts
+    
+    # copy all system certs and our user cert into the tmpfs system certs folder
+    cp /data/misc/user/0/cacerts-added/* /system/etc/security/cacerts/
+    
+    # Fix any permissions & selinux context labels
+    chown root:root /system/etc/security/cacerts/*
+    chmod 644 /system/etc/security/cacerts/*
+    chcon u:object_r:system_file:s0 /system/etc/security/cacerts/*
+------------------------------------------------------------------------------
 ```
 
 ## Intents
