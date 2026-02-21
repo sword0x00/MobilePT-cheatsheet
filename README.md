@@ -209,6 +209,42 @@ echo "System certificate injected"
 
 OR 
 by httptook kit insted of 8 steps above
+
+
+# Patching with apktool (we could do this to edit in network security config xml file)
+
+    # unpack the target .apk
+    apktool d translate.apk
+    
+    # modify the AndroidManifest.xml to add a networkSecurityConfig
+        ========================
+          in application tag --> add below
+          android:networkSecurityConfig="@xml/network_security_config"
+        ==========================
+    # create a permissive res/xml/network_security_config.xml
+        ===========================
+          <network-security-config>
+              <base-config>
+                  <trust-anchors>
+                      <certificates src="system" />
+                      <certificates src="user" />
+                  </trust-anchors>
+              </base-config>
+          </network-security-config>
+        ===========================
+    cd translate
+    
+    # repackage the .apk
+    apktool b
+    
+    # ensure the .apk is zipaligned
+    [...]/build-tools/34.0.0/zipalign -p -f -v 4 ./dist/translate.apk translate2.apk
+    
+    # create a keystore to sign the apk
+    keytool -genkey -v -keystore research.keystore -alias research_key -keyalg RSA -keysize 2048 -validity 10000
+    
+    # sign the apk with apksigner
+    [...]/build-tools/34.0.0/apksigner sign --ks ./research.keystore ./translate2.apk
 ```
 
 ## Intents
