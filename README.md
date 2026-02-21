@@ -250,6 +250,21 @@ by httptook kit insted of 8 steps above
     
     # sign the apk with apksigner
     [...]/build-tools/34.0.0/apksigner sign --ks ./research.keystore ./translate2.apk
+
+--------------------------------------------------------------------------------------------------
+
+# Advanced HTTP Interception with VPN
+    For this purpose we can use the open source rethink app: https://github.com/celzero/rethink-app
+    
+        1. Change DNS settings to "System DNS"
+        2. Add a HTTP(S) CONNECT proxy
+        3. Start the "VPN"
+    
+    Also make sure you have your proxy certificate installed in the system certs store.
+
+OR
+
+# using httptool kit
 ```
 
 ## Intents
