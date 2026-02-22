@@ -212,7 +212,37 @@ you will green lines and red lines
 8- sh /data/local/tmp/certs.sh
 
 OR 
-by httptook kit insted of 8 steps above
+# by httptook kit insted of 8 steps above
+OR 
+# Make a dns spoofing to intercept the traffic
+
+1- Setup dnsmasq
+    We need some kind of DNS server where we can control the IP. Example dnsmasq.conf:
+    =========
+    address=/hextree.io/192.168.178.37
+    address=/ht-api-mocks-lcfc4kr5oa-uc.a.run.app/192.168.178.37
+    log-queries
+    =========
+2- run dnsmasq with docker:
+    =========
+    docker pull andyshinn/dnsmasq
+    docker run --name my-dnsmasq --rm -it -p 0.0.0.0:53:53/udp \
+     -v D:\tmp\proxy\dnsmasq.conf:/etc/dnsmasq.conf andyshinn/dnsmasq.conf andyshinn/dnsmasq
+    =========
+3- Configure DNS Server
+
+    In order to force apps to use our DNS service, we can make use of the Android VPN feature. Using for example the rethinkdns app we can control this.
+  
+      Change DNS settings to "Other DNS"
+      Select "Proxy DNS"
+      Create a new entry pointing at your local DNS server host
+
+    You can check whether DNS spoofing works by going to Google Chrome and visit chrome://net-internals.
+    Invisible Proxy Setup
+
+    Configure your proxy tool with invisible/transparent proxying. In this mode Burp will essentially act as a full HTTP(S) server, parse the HOST header and forward the requests accordingly.
+    
+    Make sure you have an invisible proxy listener on port 443 and 80.
 
 -------------------------------------------------------------------------------------------
 
