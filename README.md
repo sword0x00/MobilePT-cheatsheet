@@ -10,6 +10,7 @@ Mobile (Android&amp;IOS) Penetration Tester Specialist Cheatsheet
   - [apktool](#apktool)
   - [jadx](#jadx)
   - [Network Interception](#network-interception)
+  - [Frida](#frida)
   - [Intents](#intents)
   
 
@@ -296,7 +297,52 @@ OR
 
 # using httptool kit
 ```
+## Frida
+```
+mkdir ~/tools/frida
+python3 -m venv venv
+source venv/bin/activate
+pip3 install frida-tools
+frida --version
+objection
 
+-------------------------------------------------------------
+# To get the architecture based of the emulator or device
+adb shell getprop ro.product.cpu.abi
+
+# To inject Frida into an APK we can use objection:
+objection patchapk -s FridaTarget.apk -a x86_64
+adb install FridaTarget.objection.apk
+
+# the application will wait on launch for Frida to connect to it, so to start the application we have to run:
+frida -U FridaTarget
+-------------------------------------------------------------
+
+If you have a rooted device, you can also run frida-server instead of patching the APK --> download frida servers from https://github.com/frida/frida/releases -->  frida-server-*.*.*-android-x86_64.xz
+
+--> xz -d frida-server-*.*.*-android-x86_64.xz
+--> adb push frida-server-*.*.*-android-x86_64 /data/local/tmp/
+--> adb root
+--> adb shell
+--> cd /data/local/tmp
+--> chmod +x frida-server
+--> ./frida-server-*.*.*-android-x86_64
+
+from our device run
+--> frida -U FridaTarget
+
+-------------------------------------------------------------+
+frida docs --> https://frida.re/docs/examples/javascript/
+
+# To load scripts with Frida, we can just start Frida with the -l option OR %autoreload on/off
+frida -U -l test.js FridaTarget --auto-reload
+
+
+
+
+
+
+```
 ## Intents
 ```
 ## Declares our intention (Intent) to view (ACTION_VIEW) the URL
