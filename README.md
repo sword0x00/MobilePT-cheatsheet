@@ -337,9 +337,73 @@ frida docs --> https://frida.re/docs/examples/javascript/
 # To load scripts with Frida, we can just start Frida with the -l option OR %autoreload on/off
 frida -U -l test.js FridaTarget --auto-reload
 
+# We can get JavaScript wrappers for Java classes by using Java.use:
+Java.use("java.lang.String")
 
+# We can then instantiate those classes by calling $new:
+     =================================================
+    var string_class = Java.use("java.lang.String");
+    var string_instance = string_class.$new("Teststring");
+    string_instance.charAt(0);
+     =================================================
 
+# We can dispose of instances (for example to free up memory) using $dispose(), however this is almost never required, as the Garbage Collector should collect unused instances.
 
+# We can also replace the implementation of a method by overwriting it on the class:
+    =================================================
+    string_class.charAt.implementation = (c) => {
+        console.log("charAt overridden!");
+        return "X";
+    }
+     =================================================
+
+# Example to call function that return decrypted flag:
+     =================================================
+    Java.perform(() => {
+    let ExampleClass = Java.use("io.hextree.fridatarget.FlagClass");
+    let ExampleInstance = ExampleClass.$new();
+    console.log(ExampleInstance.flagFromStaticMethod());
+    console.log(ExampleInstance.flagFromInstanceMethod());
+    console.log(ExampleInstance.flagIfYouCallMeWithSesame("sesame"));// this function take pass paramter
+})
+     =================================================
+
+# Tracing Activities
+     =================================================
+    Java.perform(() => {
+        let ActivityClass = Java.use("android.app.Activity");
+        ActivityClass.onResume.implementation = function() {
+            console.log("Activity resumed:", this.getClass().getName());
+            // Call original onResume method
+            this.onResume();
+        }
+    })
+     =================================================
+
+# Trace By fragments:
+    =================================================
+    Java.perform(() => {
+        let FragmentClass = Java.use("androidx.fragment.app.Fragment");
+        FragmentClass.onResume.implementation = function() {
+            console.log("Fragment resumed:", this.getClass().getName());
+            // Call original onResume method
+            this.onResume();
+        }
+    })
+    =================================================
+
+# Frida-trace, Frida trace allows us to directly trace function calls.
+To trace specific Method on io.hextree.*, we can do:
+frida-trace -U -j 'io.hextree.<ClassName>!<MethodName> <apkName>
+
+# To trace all calls on io.hextree.*, we can do:
+frida-trace -U -j 'io.hextree.*!*' <apkName>
+
+# To exclude Class on io.hextree.*, we can do:
+frida-trace -U -j 'io.hextree.*!*' -J <anoyingClass> <apkName>
+
+# We can also trace into native objects, by specifing the -I option:
+frida-trace -U -I 'libhextree.so' -j 'io.hextree.*!*' FridaTarget
 
 
 ```
