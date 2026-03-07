@@ -418,6 +418,41 @@ Java.perform(() => {
 })
 ===================================
 
+# SSL Validation Bypasses
+--> frida-trace -U -j '*!*checkServerTrusted*' FridaTarget
+OR
+--> frida -U FridaTarget
+  --> Java.enumerateMethods("*Platform!*checkServerTrusted*")
+
+================
+Java.perform(() => {
+    var PlatformClass = Java.use("com.android.org.conscrypt.Platform");
+    PlatformClass.checkServerTrusted.overload('javax.net.ssl.X509TrustManager', '[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'com.android.org.conscrypt.AbstractConscryptSocket').implementation = function() {
+        console.log("Check server trusted");
+    }
+})
+================
+
+## SSL Pinning Bypass
+--> frida -U FridaTarget
+  --> Java.enumerateMethods('*okhttp*Builder!*')
+======
+Java.perform(() => {
+    var BuilderClass = Java.use("okhttp3.OkHttpClient$Builder");
+    BuilderClass.certificatePinner.implementation = function() {
+        console.log("Certificate pinner called");
+        return this;
+    }
+})
+======
+
+--> frida -U -l delete_me-scrip-for-frida.js -l d2elete_me-scrip-for-frida.js FridaTarget --auto-reload
+
+
+OR 
+objection -n "FridaTarget" start
+  --> android sslpinning disable
+
 ```
 ## Intents
 ```
