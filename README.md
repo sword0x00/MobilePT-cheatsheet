@@ -405,6 +405,18 @@ frida-trace -U -j 'io.hextree.*!*' -J <anoyingClass> <apkName>
 # We can also trace into native objects, by specifing the -I option:
 frida-trace -U -I 'libhextree.so' -j 'io.hextree.*!*' FridaTarget
 
+---------------------------------------------------------------
+# Frida Interception Basics
+We can use Frida to intercept function calls and return values. For example, to replace the return value of InterceptionFragment.function_to_intercept, we can just write a simple script:
+===================================
+Java.perform(() => {
+    var InterceptionFragment = Java.use("io.hextree.fridatarget.ui.InterceptionFragment");
+    InterceptionFragment.function_to_intercept.implementation = function(argument) {
+        this.function_to_intercept(argument);
+        return "SOMETHING DIFFERENT";
+    }
+})
+===================================
 
 ```
 ## Intents
